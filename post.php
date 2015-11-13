@@ -1,6 +1,6 @@
 <?php
 
-class Post {
+class muie {
 
 	public  $id;
 	public  $imageFull;
@@ -17,7 +17,6 @@ class Post {
 class PostResponse{
 	public $posts;
 	public $count;
-	public $moreToGet;
 }
 
 ?>
