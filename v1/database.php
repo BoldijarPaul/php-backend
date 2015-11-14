@@ -9,7 +9,7 @@ class Database {
 		$password = "";
 		$db = "junimea";
  
-		$servername = "mysql.hostinger.ro" //sample host 
+		$servername = "mysql.hostinger.ro"; //sample host 
 		$username = "u407201591_paul";
 		$password = "cacatpisat";
  		$db = "u407201591_paul";
