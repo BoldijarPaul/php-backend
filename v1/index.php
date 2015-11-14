@@ -9,17 +9,15 @@ use Symfony\Component\HttpFoundation\Response;
 $app = new Silex\Application();
 $database = new Database;
 
-
-$app->get('/dbstatus', function ( Application $app, Request $request) use ($app) {
-	global $database;
-	return $database->isConnected();
+$app->get('/add', function ( Application $app, Request $request) use ($app) {
+		$details= $request->query->get('details');
+		$fullImage=$request->query->get('fullImage');
+		$category=$request->query->get('category');
+		global $database;
+		$database->addPost($details,$fullImage,$category);
+		return "yep";
 });
 
-$app->get('/post', function ( Application $app, Request $request) use ($app) {
-	$database = new Database;
-	$results = $database->getPosts(0,5);
-	return json_encode($results);
-});
 $app->get('/posts', function ( Application $app, Request $request) use ($app) {
 
 		$limit= $request->query->get('limit');
@@ -37,11 +35,12 @@ $app->get('/posts', function ( Application $app, Request $request) use ($app) {
 
 		}
 		global $database;
-		$results = $database->getPosts($offset,$limit,$category);
+		$results = $database->getPosts($offset,$limit,$category,$beforeDate);
 		$postResponse =new PostResponse;
 		$postResponse->posts=$results;
 		$postResponse->count=count($results);
-		return json_encode($postResponse);
+		return $app->json($postResponse, 200);
+
 });
 
 $app->run();
