@@ -9,16 +9,27 @@ class Database {
 		$password = "";
 		$db = "junimea";
  
-		$servername = "mysql.hostinger.ro"; //sample host 
-		$username = "u407201591_paul";
-		$password = "cacatpisat";
- 		$db = "u407201591_paul";
+		// $servername = "mysql.hostinger.ro"; //sample host 
+		// $username = "u407201591_paul";
+		// $password = "cacatpisat";
+ 	// 	$db = "u407201591_paul";
 		// Create connection
 		$this->connection = mysqli_connect($servername, $username, $password,$db);
 		// $this->connection->select_db($db);
 		
   	}
 
+    public function getNewPostsAvailable($afterDate){
+      $sql="select count(*) as total from post where date > '".$afterDate."' ";
+      $result = $this->connection->query($sql);
+      $data=$result->fetch_row();
+      $count=$data[0]; 
+      $postsAvailable=new NewPostAvailable;
+      $postsAvailable->count=$count;
+      $postsAvailable->available = $count!=0;
+      return $postsAvailable;
+
+    }
   	public function addPost($details,$imageFull,$category){
   		$date=round(microtime(true) * 1000);
   		$sql = "insert into post(details,imageFull,category,date) 

@@ -3,6 +3,7 @@ require_once 'vendor/autoload.php';
 include 'post.php';
 include 'database.php';
 include 'error.php';
+include 'newpostsavailable.php';
 use Silex\Application;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -42,6 +43,21 @@ $app->get('/posts', function ( Application $app, Request $request) use ($app) {
 		return $app->json($postResponse, 200);
 
 });
+
+$app->get('/newposts', function ( Application $app, Request $request) use ($app) {
+		$afterDate=$request->query->get('afterDate');
+	if(is_null($afterDate)){
+		$error= new Error;
+		$error->message = "You must have a afterDate parameter!";
+		return $app->json($error, 200);
+	}
+
+		global $database;
+		$result= $database->getNewPostsAvailable($afterDate);
+		return $app->json($result, 200);
+
+});
+
 
 $app->run();
 
