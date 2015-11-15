@@ -13,6 +13,7 @@ class Post {
 class PostResponse{
 	public $posts;
 	public $count;
+	public $newPostsAvailable;
 }
 
 ?>

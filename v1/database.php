@@ -54,7 +54,7 @@ class Database {
   			else if (!is_null($category)) {
   				$sql=$sql."category='".$category."'";
   			}else{
-  			$sql=$sql."date < '".$beforeDate."'";	
+  			$sql=$sql."date <= '".$beforeDate."'";	
   			}
   			
   		}

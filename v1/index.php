@@ -40,6 +40,11 @@ $app->get('/posts', function ( Application $app, Request $request) use ($app) {
 		$postResponse =new PostResponse;
 		$postResponse->posts=$results;
 		$postResponse->count=count($results);
+		if(is_null($beforeDate)){
+			$postResponse->newPostsAvailable = null;
+		}else{
+			$postResponse->newPostsAvailable = $database->getNewPostsAvailable($beforeDate);
+		}
 		return $app->json($postResponse, 200);
 
 });
