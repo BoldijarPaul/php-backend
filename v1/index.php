@@ -19,7 +19,7 @@ $app->get('/add', function ( Application $app, Request $request) use ($app) {
 		return "yep";
 });
 
-$app->get('/posts', function ( Application $app, Request $request) use ($app) {
+$app->get('/posts', function (Application $app, Request $request) use ($app) {
 
 		$limit= $request->query->get('limit');
 		$offset=$request->query->get('offset');
@@ -45,7 +45,15 @@ $app->get('/posts', function ( Application $app, Request $request) use ($app) {
 		}else{
 			$postResponse->newPostsAvailable = $database->getNewPostsAvailable($beforeDate);
 		}
-		return $app->json($postResponse, 200);
+
+		$response = new Response();
+		$response->setContent(json_encode($postResponse));
+		$response->setStatusCode(200);
+	    $response->headers->set("Access-Control-Allow-Origin","*");
+        $response->headers->set("Access-Control-Allow-Methods","GET,POST,PUT,DELETE,OPTIONS");
+        $response->headers->set("Content-Type","application/json; charset=UTF-8 ");
+       
+		return $response;
 
 });
 
