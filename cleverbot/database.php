@@ -19,7 +19,7 @@ class Database {
 		$servername = "mysql.hostinger.ro"; //sample host 
 		$username = "u407201591_paul";
 		$password = "cacatpisat";
- 	// 	$db = "u407201591_paul";
+ 	 	$db = "u407201591_paul";
 		// Create connection
 		$this->connection = mysqli_connect($servername, $username, $password,$db);
 		// $this->connection->select_db($db);
