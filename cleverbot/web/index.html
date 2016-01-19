@@ -1,0 +1,16 @@
+<html>
+
+<div id="content">Chat...</div>
+<br>
+<input type="text" id="question" name="fname"><br>
+<input type="submit" value="Submit" onClick="button_click();">
+
+
+ <script type="text/javascript">
+    function button_click() {
+    	var content = document.getElementById("content").innerHTML;
+    	var question = document.getElementById("question").value
+        document.getElementById("content").innerHTML = content+"<br>You: "+question;
+    }
+</script>
+</html>
