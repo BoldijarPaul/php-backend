@@ -5,12 +5,16 @@ require_once 'DatabaseController.php';
 class AnswerController extends DatabaseController {
  
  
-
+  private function cleanString($string){
+    $clean_string = str_replace(' ', '', $string);
+    $clean_string = str_replace('-', '', $clean_string);
+    $clean_string = str_replace(',', '', $clean_string);
+    $clean_string = str_replace('?', '', $clean_string);
+    return $clean_string;
+  }
   public function getAnswer($question){
-    $question_query = str_replace(' ', '', $question);
-    $question_query = str_replace('-', '', $question_query);
-    $question_query = str_replace(',', '', $question_query);
-    
+    $question_query = $this->cleanString($question);
+
     $randVal = rand(0,10);
     if ($randVal < 3) {
      return $this->getNoAnswer($question);
@@ -39,6 +43,7 @@ class AnswerController extends DatabaseController {
     return $suggestion;  
   }
   public function addSuggestion($question,$answer){
+    $question=$this->cleanString($question);
     $sql = "insert into suggestions(question,answer) values('".$question."','".$answer."')";
     $result = $this->getConnection()->query($sql);
     $suggestion=new stdClass();
