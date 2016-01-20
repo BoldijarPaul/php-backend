@@ -7,15 +7,15 @@ class AnswerController extends DatabaseController {
  
 
   public function getAnswer($question){
-    $question = str_replace(' ', '', $question);
-    $question = str_replace('-', '', $question);
-    $question = str_replace(',', '', $question);
+    $question_query = str_replace(' ', '', $question);
+    $question_query = str_replace('-', '', $question_query);
+    $question_query = str_replace(',', '', $question_query);
     
     $randVal = rand(0,10);
     if ($randVal < 3) {
      return $this->getNoAnswer($question);
     }
-    $sql = "select * from suggestions where question = '".$question."' order by rand() limit 1";
+    $sql = "select * from suggestions where question = '".$question_query."' order by rand() limit 1";
     $result = $this->getConnection()->query($sql);
     if ($result->num_rows > 0) {
         while($row = $result->fetch_assoc()) {
