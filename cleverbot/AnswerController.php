@@ -7,6 +7,10 @@ class AnswerController extends DatabaseController {
  
 
   public function getAnswer($question){
+    $question = str_replace(' ', '', $question);
+    $question = str_replace('-', '', $question);
+    $question = str_replace(',', '', $question);
+    
     $randVal = rand(0,10);
     if ($randVal < 3) {
      return $this->getNoAnswer($question);
